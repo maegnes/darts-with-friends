@@ -27,7 +27,12 @@
   </head>
 
   <body>	
-    <div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+
+<a target="_blank" href="https://github.com/maegnes/darts-with-friends.git">
+	<img style="position: absolute; top: 0; z-index: 1000000; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub">
+</a>
+
+ <div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
       <div class="container">
         <div class="navbar-header">
 			<a class="navbar-brand" href="#">Darts with Friends</a>
