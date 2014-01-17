@@ -7,3 +7,9 @@ during my christmas holidays i had the ambition to write a simple calculator for
 i also planned to add persistency of player data and statistics (but so far I didn't)
 
 feel free to contribute!
+
+supported for the moment
+==================
+- game 501
+- view checkout possibilities
+- calc three-dart-average
