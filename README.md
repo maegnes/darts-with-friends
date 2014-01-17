@@ -13,3 +13,8 @@ supported for the moment
 - game 501
 - view checkout possibilities
 - calc three-dart-average
+
+demo
+==================
+http://www.b-u-k.eu/darts
+
