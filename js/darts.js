@@ -8,7 +8,17 @@ DartsPlayer = function() {
 	
 	this.pointsMade = 0;
 	
-	this.fallBack = 0;
+	this.fallBack = 501;
+	
+	this.highestScore = 0;
+	
+	this.setHighestScore = function( pts ) {
+		this.highestScore = pts;
+	};
+	
+	this.getHighestScore = function() {
+		return this.highestScore;
+	};
 	
 	this.setFallBack = function( pts ) {
 		this.fallBack = pts;
@@ -71,7 +81,7 @@ DartsGame = function() {
 	
 	this.addPlayer = function( player ) {
 		this.players.push( player );
-		var skeleton = '<div id="player-' + player.getName() + '" class="col-5 col-sm-5 col-lg-3 player"><h1>' + player.getName() + '</h1><h3 id="points-' + player.getName() + '">501</h3><h5>3D AVG:<span id="tda-' + player.getName() + '">0</span></h5></div>';
+		var skeleton = '<div id="player-' + player.getName() + '" class="col-5 col-sm-5 col-lg-3 player"><h1>' + player.getName() + '</h1><h3 id="points-' + player.getName() + '">501</h3><h5>3D AVG:<span id="tda-' + player.getName() + '">0</span></h5><h5>Highest Score:<span id="highscore-' + player.getName() + '">0</span></h5></div>';
 		$( '.players' ).append( skeleton );		
 	};
 	
@@ -116,7 +126,13 @@ DartsGame = function() {
 	this.nextPlayer = function() {
 		// Update three dart average
 		$( '#tda-' + this.getPlayer().getName()  ).html( this.getPlayer().getThreeDartAverage() );
+		var thrownPoints = this.getPlayer().getFallBack() - this.getPlayer().getPoints();
+		if( thrownPoints > this.getPlayer().getHighestScore() ) {
+			this.getPlayer().setHighestScore( thrownPoints );
+		}
+		$( '#highscore-' + this.getPlayer().getName() ).html( this.getPlayer().getHighestScore() );
 		$( '.throws' ).html( '' );
+		console.log( this.getPlayer() );
         if( 0 == this.getPlayer().getPoints() )
             $( '#player-' + this.getPlayer().getName() ).addClass( 'finished' );
 		if( typeof this.players[parseInt(this.currentPlayer + 1)] == "object" ) {
