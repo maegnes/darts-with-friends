@@ -360,9 +360,11 @@ DartsGame = function() {
 				var first = checkouts[this.getPlayer().getPoints()]['first'];
 				var second = checkouts[this.getPlayer().getPoints()]['second'];
 				var third = checkouts[this.getPlayer().getPoints()]['third'];
+
                 // Add the first needed score to the checkout string
 				var checkoutString = first;
 				neededDarts++;
+
                 // If a second score is needed to checkout the score, add it to checkout string
 				if( second != '' ) {
 					checkoutString += ' - ' + second;
