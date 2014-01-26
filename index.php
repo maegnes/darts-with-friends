@@ -42,6 +42,13 @@
 				</div>
 				<button type="button" class="btn btn-default addplayer">Add Player</button>
 				<div class="form-group">
+					<select id="gametype" class="form-control">
+						<option>501</option>
+						<option>401</option>
+						<option>301</option>
+					</select>
+				</div>				
+				<div class="form-group">
 					<select id="startplayer" class="form-control">
 					</select>
 				</div>

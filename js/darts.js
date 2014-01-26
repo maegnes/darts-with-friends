@@ -170,6 +170,13 @@ DartsPlayer = function() {
 DartsGame = function() {
 
     /**
+     * Start points of the game
+     *
+     * @type {Number}
+     */
+    this.startPoints = 501;
+
+    /**
      * Stores the players for the current game
      *
      * @type {Array}
@@ -203,7 +210,7 @@ DartsGame = function() {
      */
 	this.addPlayer = function( player ) {
 		this.players.push( player );
-		var skeleton = '<div id="player-' + player.getName() + '" class="col-5 col-sm-5 col-lg-3 player"><h1>' + player.getName() + '</h1><h3 id="points-' + player.getName() + '">501</h3><h5>3D AVG:<span id="tda-' + player.getName() + '">0</span></h5><h5>Highest Score:<span id="highscore-' + player.getName() + '">0</span></h5></div>';
+		var skeleton = '<div id="player-' + player.getName() + '" class="col-5 col-sm-5 col-lg-3 player"><h1>' + player.getName() + '</h1><h3 id="points-' + player.getName() + '">' + this.getStartPoints() + '</h3><h5>3D AVG:<span id="tda-' + player.getName() + '">0</span></h5><h5>Highest Score:<span id="highscore-' + player.getName() + '">0</span></h5></div>';
 		$( '.players' ).append( skeleton );		
 	};
 
@@ -215,6 +222,15 @@ DartsGame = function() {
 	this.getPlayers = function() {
 		return this.players;
 	};
+
+    /**
+     * Returns the start points of the game
+     *
+     * @return {Number}
+     */
+    this.getStartPoints = function() {
+        return this.startPoints;
+    };
 
     /**
      * Start the current game!
@@ -394,40 +410,71 @@ DartsGame = function() {
         // Walk through all players and reset the remaining points
 		$.each( this.getPlayers(), function( k, player ) {
             // Set the new points (501 = Start points)
-			player.setPoints( 501 );
+			player.setPoints( game.getStartPoints() );
             // Get the player which is selected as the starting player
 			game.currentPlayer = $( '#startplayer' ).val();
 			game.setPlayer();
-			$( '#points-' + player.getName() ).html( 501 );
+			$( '#points-' + player.getName() ).html( game.getStartPoints() );
 			$( '#player-' + player.getName() ).removeClass( 'finished' );
 		});
 	}
 
 };
 
-// Create DartsGame object
-game = new DartsGame();
+/**
+ * 401 Game
+ *
+ * @constructor
+ */
+FourHundredOne = function() {
+    this.startPoints = 401;
+};
+FourHundredOne.prototype = new DartsGame();
 
 /**
- * Calculate the thrown amount
+ * 301 Game
+ *
+ * @constructor
  */
-$( '.addpoints' ).click( function() {
-	game.calc( $(this).attr( 'data-value' ) );
-});
+ThreeHundredOne = function() {
+    this.startPoints = 301;
+};
+ThreeHundredOne.prototype = new DartsGame();
+
+// Set initial game to null
+var game = null;
 
 /**
  * A new player was added
  */
 $( '.addplayer' ).click( function() {
     var domPlayer = $( '#new-player' );
+    // Check if a game was already initialized
+    if( game == null ) {
+        var gameType = $( '#gametype').val();
+        if( 501 == gameType )
+            game = new DartsGame();
+        else if( 401 == gameType )
+            game = new FourHundredOne();
+        else if( 301 == gameType )
+            game = new ThreeHundredOne();
+    }
     // Create object for the new player and set his name
 	var newPlayer = new DartsPlayer();
 	newPlayer.setName( domPlayer.val() );
+    newPlayer.setPoints( game.getStartPoints() );
 	domPlayer.val( '' );
     // Append the new player to the start player select field
 	$( '#startplayer' ).append( '<option value="' + game.getPlayers().length + '">' + newPlayer.getName() + '</option>' );
     // Finally add the player to the current game
 	game.addPlayer( newPlayer );
+});
+
+/**
+ * Calculate the thrown amount
+ */
+$( '.addpoints' ).click( function() {
+    game.calc( $(this).attr( 'data-value' ) );
 });
 
 /**
