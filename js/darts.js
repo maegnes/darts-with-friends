@@ -328,7 +328,7 @@ DartsGame = function() {
 			else
 				break;
 		}
-        // Set the throwCount for the currnt player to 0
+        // Set the throwCount for the current player to 0
 		this.throwCount = 0;
         // Set the fall back for the current player
 		this.getPlayer().setFallBack( this.getPlayer().getPoints() );
@@ -482,12 +482,16 @@ $( '.addpoints' ).click( function() {
  */
 $( '.gameon' ).click( function() {
     // Start game
-	if( game.start() ) {
-        // Hide the "GAMEON" Button
-		$(this).hide();
-        // Show the "RESTART" Button
-		$( '.restart' ).removeClass( 'hide' );
-	}
+    if( game == null ) {
+        alert( 'Please add players first!' );
+    } else {
+        if( game.start() ) {
+            // Hide the "GAMEON" Button
+            $(this).hide();
+            // Show the "RESTART" Button
+            $( '.restart' ).removeClass( 'hide' );
+        }
+    }
 });
 
 /**
