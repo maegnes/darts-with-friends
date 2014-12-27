@@ -344,7 +344,7 @@ DartsGame = function() {
         // If the thrown points are higher than the current user highest score, set new highest score!
 		if( thrownPoints > this.getPlayer().getHighestScore() ) {
 			this.getPlayer().setHighestScore( thrownPoints );
-            $( '#highscore-' + this.getPlayer().getName() ).html( this.getPlayer().getHighestScore() );
+            $( '#highscore-' + this.getPlayer().getName() ).html(" " + this.getPlayer().getHighestScore() );
 		}
 
         // Reset the div where the thrown points are shown in the menu bar
