@@ -85,7 +85,7 @@
 				<button type="button" class="btn btn-success addpoints" data-value="25">25</button>
 				<button type="button" class="btn btn-danger addpoints" data-value="50">50</button>
 				<button type="button" class="btn btn-warning addpoints" data-value="0">0</button>
-        <buttpn type="button" class="btn btn-info addpoints" data-value="std">1-5-20</button>
+        <button type="button" class="btn btn-info addpoints" data-value="std">1-5-20</button>
 			</a>
 			<?php for( $i = 20; $i >= 1; $i-- ) {
 				echo '<a class="list-group-item">
