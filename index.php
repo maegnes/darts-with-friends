@@ -102,7 +102,7 @@
       <hr>
 
       <footer>
-        <p>&copy; just maeg 2013</p>
+        <p>&copy; just maeg 2013 - feel free to contribute and clone darts-with-friends on <a target="_blank" href="https://github.com/maegnes/darts-with-friends">github</a></p>
       </footer>
 
     </div><!--/.container-->
