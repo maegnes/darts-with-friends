@@ -33,7 +33,7 @@
         <div class="navbar-header">
 			<form class="form-inline" role="search">
         <div class="form-group">
-          <label>1. Choose type</label>
+          <label>1. Select type</label>
           <select id="gametype" class="form-control">
             <option>501</option>
             <option>401</option>
@@ -46,7 +46,7 @@
 				</div>
 				<button type="button" class="btn btn-default addplayer">Add Player</button>			
 				<div class="form-group">
-          <label>3. Select start player</label>
+          <label>3. Select starting player</label>
 					<select id="startplayer" class="form-control">
 					</select>
 				</div>
@@ -77,7 +77,10 @@
 		  <div class="welcome">
         <img src="darts.png"/>
 			<h1>Darts with friends.</h1>
-			<h2>Add players and press button "GAME ON"</h2>
+      <h2>1. Select game type (301, 401, 501)</h2>
+      <h2>2. Add players</h2>
+      <h2>3. Select starting player</h2>
+			<h2>4. Press Button "GAME ON". Game on!</h2>
 		  </div>
           <div class="row players"></div>
         </div>
