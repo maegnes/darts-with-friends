@@ -381,6 +381,8 @@ DartsGame = function() {
 		this.getPlayer().setFallBack( this.getPlayer().getPoints() );
         // Prepare div fields etc
 		this.setPlayer();
+
+        $(window).scrollTop(0);
 	};
 
     /**
