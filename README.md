@@ -12,6 +12,7 @@ supported for the moment
 - view checkout possibilities
 - calc three-dart-average
 - view of the highest three dart score
+- checkout percentage
 
 demo
 ==================
