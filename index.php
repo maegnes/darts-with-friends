@@ -28,23 +28,25 @@
 
   <body>	
 
- <div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+ <div class="navbar navbar-fixed-top navbar-default" style="padding: 5px;" role="navigation">
       <div class="container">
         <div class="navbar-header">
-			<a class="navbar-brand" href="#">Darts with Friends</a>
-			<form class="navbar-form navbar-left" role="search">
+			<form class="form-inline" role="search">
+        <div class="form-group">
+          <label>1. Choose type</label>
+          <select id="gametype" class="form-control">
+            <option>501</option>
+            <option>401</option>
+            <option>301</option>
+          </select>
+        </div>  
+        <label>2. Add players</label>
 				<div class="form-group">
-					<input type="text" id="new-player" class="form-control" placeholder="players name">
+					<input type="text" id="new-player" class="form-control" placeholder="Name of the player">
 				</div>
-				<button type="button" class="btn btn-default addplayer">Add Player</button>
+				<button type="button" class="btn btn-default addplayer">Add Player</button>			
 				<div class="form-group">
-					<select id="gametype" class="form-control">
-						<option>501</option>
-						<option>401</option>
-						<option>301</option>
-					</select>
-				</div>				
-				<div class="form-group">
+          <label>3. Select start player</label>
 					<select id="startplayer" class="form-control">
 					</select>
 				</div>
@@ -73,6 +75,7 @@
 			<h3 id="checkout"></h3>
           </div>
 		  <div class="welcome">
+        <img src="darts.png"/>
 			<h1>Darts with friends.</h1>
 			<h2>Add players and press button "GAME ON"</h2>
 		  </div>
