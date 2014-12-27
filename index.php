@@ -28,10 +28,6 @@
 
   <body>	
 
-<a target="_blank" href="https://github.com/maegnes/darts-with-friends.git">
-	<img style="position: absolute; top: 0; z-index: 1000000; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub">
-</a>
-
  <div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
       <div class="container">
         <div class="navbar-header">
@@ -89,6 +85,7 @@
 				<button type="button" class="btn btn-success addpoints" data-value="25">25</button>
 				<button type="button" class="btn btn-danger addpoints" data-value="50">50</button>
 				<button type="button" class="btn btn-warning addpoints" data-value="0">0</button>
+        <buttpn type="button" class="btn btn-info addpoints" data-value="std">1-5-20</button>
 			</a>
 			<?php for( $i = 20; $i >= 1; $i-- ) {
 				echo '<a class="list-group-item">

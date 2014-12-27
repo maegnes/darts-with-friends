@@ -48,6 +48,46 @@ DartsPlayer = function() {
 	this.highestScore = 0;
 
     /**
+     * checkout attempts
+     *
+     * @type {Number}
+     */
+    this.checkoutAttempts = 0;
+
+    /**
+     * checkout attempts
+     *
+     * @type {Number}
+     */
+    this.checkoutSuccessful = 0;
+
+    /**
+     * increase the amount of attempted checkouts
+     */
+    this.increaseCheckoutAttempts = function() {
+        this.checkoutAttempts++;
+    };
+
+    /**
+     * increase the amount of successful checkout attempts
+     *
+     */
+    this.increaseSuccessfulCheckouts = function() {
+        this.checkoutSuccessful++;
+    };
+
+    /**
+     * calculate the checkout percentage based on attempts
+     */
+    this.getCheckoutPercentage = function() {
+        if(this.checkoutSuccessful > 0) {
+            var pct = (100 / this.checkoutAttempts) * this.checkoutSuccessful;
+            return pct.toFixed( 2 );
+        }
+        return 0;
+    };
+
+    /**
      * Sets the highest score of the user
      *
      * @param pts
@@ -210,7 +250,7 @@ DartsGame = function() {
      */
 	this.addPlayer = function( player ) {
 		this.players.push( player );
-		var skeleton = '<div id="player-' + player.getName() + '" class="col-5 col-sm-5 col-lg-3 player"><h1>' + player.getName() + '</h1><h3 id="points-' + player.getName() + '">' + this.getStartPoints() + '</h3><h5>3D AVG:<span id="tda-' + player.getName() + '">0</span></h5><h5>Highest Score:<span id="highscore-' + player.getName() + '">0</span></h5></div>';
+		var skeleton = '<div id="player-' + player.getName() + '" class="col-5 col-sm-5 col-lg-3 player"><h1>' + player.getName() + '</h1><h3 id="points-' + player.getName() + '">' + this.getStartPoints() + '</h3><h5>3D AVG:<span id="tda-' + player.getName() + '">0</span></h5><h5>Highest Score:<span id="highscore-' + player.getName() + '">0</span></h5><h5>Checkout PCT:<span id="checkoutpct-' + player.getName() + '"></span></h5></div>';
 		$( '.players' ).append( skeleton );		
 	};
 
@@ -282,6 +322,7 @@ DartsGame = function() {
             // Show the thrown points in the headbar
 			$( '.throws' ).append( '<span class="label label-success">' + points + '</span>' );
 			this.setPoints();
+
             // If the players throwCount is 3 or the player has 0 points left, jump to the next player
 			if( 3 == this.throwCount || this.getPlayer().getPoints() == 0 )
 				this.nextPlayer();		
@@ -305,13 +346,19 @@ DartsGame = function() {
 			this.getPlayer().setHighestScore( thrownPoints );
             $( '#highscore-' + this.getPlayer().getName() ).html( this.getPlayer().getHighestScore() );
 		}
+
         // Reset the div where the thrown points are shown in the menu bar
 		$( '.throws' ).html( '' );
         // Check if the user has reached exactly 0 - if yes he's finished
         if( 0 == this.getPlayer().getPoints() ) {
+            this.getPlayer().increaseSuccessfulCheckouts();
             // Mark the player div as finished
             $( '#player-' + this.getPlayer().getName() ).addClass( 'finished' );
         }
+
+        // update checkout pct
+        $( '#checkoutpct-' + this.getPlayer().getName() ).html(" " + this.getPlayer().getCheckoutPercentage() + "%");
+
         // Check if the next index in the array is a valid DartsPlayer object (check if a next player exists)
 		if( typeof this.players[parseInt(this.currentPlayer + 1)] == "object" ) {
             // If yes just increase the currentPlayer index
@@ -356,6 +403,7 @@ DartsGame = function() {
      * Set some point stuff (GUI) of the current user and calculate checkout route
      */
 	this.setPoints = function() {
+
         // Fetch the DIV for the checkoutRoute
         var checkoutRouteDOM = $( '#checkout' );
 
@@ -390,6 +438,12 @@ DartsGame = function() {
 				if( third != '' ) {
 					checkoutString += ' - ' + third; neededDarts++;
 				}
+
+                // If one dart is needed we have a checkout! increase checkout attempt
+                if(1 == neededDarts && this.throwCount < 3) {
+                    this.getPlayer().increaseCheckoutAttempts();
+                }
+
                 // Check if the player has enough throws remaining to check out the current score
 				if( ( 3 - this.throwCount ) >= neededDarts ) {
                     // The user has more remaining throws than needed for checkout - SHOW CHECKOUT TEXT!
@@ -474,7 +528,14 @@ $( '.addplayer' ).click( function() {
  * Calculate the thrown amount
  */
 $( '.addpoints' ).click( function() {
-    game.calc( $(this).attr( 'data-value' ) );
+    var val = $(this).attr('data-value');
+    if( "std" == val) {
+        game.calc(1);
+        game.calc(5);
+        game.calc(20);
+    } else {
+        game.calc( $(this).attr( 'data-value' ) );
+    }
 });
 
 /**
